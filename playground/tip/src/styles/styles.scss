@@ -149,7 +149,9 @@ body {
         box-sizing: content-box;
         width: 30%;
         min-width: 300px;  
-        padding: 12px 10px 5px 15px;
+        /*padding: 12px 10px 5px 15px;*/
+        padding: 0;
+        padding-top: 12px;
         margin: 0;
         line-height: 1;
         text-align: center;
@@ -159,6 +161,8 @@ body {
             
         &::placeholder {
             font-family: $font-secondary;
+            font-size: 1em;
+            overflow: visible;
             color: $colour-blue;
             opacity: .5;
         }
@@ -375,7 +379,7 @@ div.people {
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
     .container {
         width: 100%;
     }
@@ -384,6 +388,15 @@ div.people {
         height: auto;
     }
 
+    .entry-field {
+        input {
+            width: 100%;
+            padding: 0;
+        }
+        input::placeholder {
+            font-size: $font-size-xs;
+        }
+    }
 }
 
 @media (max-width: 450px) {
@@ -395,5 +408,15 @@ div.people {
     }
     .bottom {
         display: none;
+    }
+    .entry-field {
+        input {
+            width: 100%;
+            min-width: 0;
+            padding: 0;
+        }
+        input::placeholder {
+            font-size: $font-size-xs;
+        }
     }
 }

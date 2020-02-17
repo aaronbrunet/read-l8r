@@ -21,6 +21,7 @@ class App extends Component {
       tip_share: '0.00',
       count: 1,
       percent: 0,
+      remainder: '0.00',
       roundUp: false
     }
   }
@@ -40,6 +41,12 @@ class App extends Component {
       val = Math.ceil(val);
       return val;
   }
+  remainder(bill_tip){
+    let val=bill_tip;
+    let rm = Math.ceil(val);
+    rm = bill_tip - rm;
+    return rm;
+}
 
   //calc by input value
   eval = (bill_,count_,round_) => {    
@@ -51,19 +58,21 @@ class App extends Component {
       bill = parseFloat(bill);
       let tip = parseFloat(this.state.tip);
       let bill_tip = parseFloat(this.state.bill_tip);
+      let remainder = parseFloat(this.state.remainder);
       try { 
         tip = bill*parseFloat(this.state.percent);
         bill_tip = bill + tip;
         if(round){
           bill_tip = this.roundUp(bill_tip);
+          remainder = parseFloat(this.remainder(bill_tip));
           tip = bill_tip - bill;
         }
         let share = bill_tip/count;    
         let tip_share = tip/count;
-        this.setState({ bill: bill.toFixed(2), bill_tip: bill_tip.toFixed(2), tip: tip.toFixed(2), tip_share: tip_share.toFixed(2),share: share.toFixed(2)})    
+        this.setState({ bill: bill.toFixed(2), bill_tip: bill_tip.toFixed(2), tip: tip.toFixed(2), tip_share: tip_share.toFixed(2),share: share.toFixed(2), remainder: remainder.toFixed(2)})    
       }catch (e){
         this.setState({
-        bill_tip:"error"
+        bill_tip:"eval error"
       })
       }
     }
@@ -76,21 +85,23 @@ class App extends Component {
     let bill = parseFloat(this.state.bill);
     let tip = parseFloat(this.state.tip);
     let bill_tip = parseFloat(this.state.bill);//this.state.bill_tip;      
-    let share = parseFloat(this.state.share);
+    let share = parseFloat(this.state.share);    
+    let remainder = parseFloat(this.state.remainder);
     try {      
       tip = bill*percent;
       bill_tip = bill + tip;
       if(this.state.roundUp){
         bill_tip = this.roundUp(bill_tip);
+        remainder = parseFloat(this.remainder(bill_tip));
         tip = bill_tip - bill;
       } 
       share = bill_tip / this.state.count;
       let tip_share = tip/this.state.count;
       this.setState({
-        bill_tip: bill_tip.toFixed(2).toString(), tip: tip.toFixed(2).toString(), tip_share: tip_share.toFixed(2), share: share.toFixed(2), percent: percent})
+        bill_tip: bill_tip.toFixed(2).toString(), tip: tip.toFixed(2).toString(), tip_share: tip_share.toFixed(2), share: share.toFixed(2), percent: percent, remainder: remainder.toFixed(2)})
     }catch (e){
       this.setState({
-         bill_tip:"error"
+         bill_tip:"calc error"
       })
     }    
   };  
@@ -102,6 +113,7 @@ class App extends Component {
       share: '0.00',
       tip: '0.00',
       tip_share: '0.00',
+      remainder: '0.00',
       percent: 0
     });
   };  
@@ -121,7 +133,7 @@ class App extends Component {
           <Entry eval={this.eval} count={this.state.count} reset={this.reset} /> 
           <Tip tips={tips} calculate={this.calculate} reset={this.reset} />
           </div>
-          <Bill headcount={this.headcount} count={this.state.count} bill={this.state.bill} bill_tip={this.state.bill_tip} tip={this.state.tip} tip_share={this.state.tip_share} share={this.state.share} rounding={this.rounding}/>
+          <Bill headcount={this.headcount} count={this.state.count} bill={this.state.bill} bill_tip={this.state.bill_tip} tip={this.state.tip} tip_share={this.state.tip_share} share={this.state.share} rounding={this.rounding} remainder={this.state.remainder}/>
         </div>
       </div>
       <div className="bottom"><p>Created by Aaron Brunet 2020</p></div>
