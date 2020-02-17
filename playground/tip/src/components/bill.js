@@ -49,7 +49,7 @@ const Bill = (props) => {
                     <Toggle toggle={toggle} className={props.count>1 ? "toggle"  : "toggle disabled"} onClick={()=>setToggle(toggle => !toggle)}>{toggle ? 'Total' : 'Each'}</Toggle>
                 </div>
                 <div className='round small-container'>
-                    <button className={roundUp ? 'active nearest' : 'nearest'} onClick={(toggleRoundUp)}>{props.remainder} Nearest $</button>
+                <button className={roundUp ? 'active nearest' : 'nearest'} onClick={(toggleRoundUp)}>{roundUp ? '-' : '+' } ${props.remainder}</button>
             </div>
         </div>   
         </>

@@ -61,10 +61,10 @@ class App extends Component {
       let remainder = parseFloat(this.state.remainder);
       try { 
         tip = bill*parseFloat(this.state.percent);
-        bill_tip = bill + tip;
+        bill_tip = bill + tip;        
+        remainder = Math.abs(this.remainder(bill_tip));
         if(round){
           bill_tip = this.roundUp(bill_tip);
-          remainder = parseFloat(this.remainder(bill_tip));
           tip = bill_tip - bill;
         }
         let share = bill_tip/count;    
@@ -89,10 +89,10 @@ class App extends Component {
     let remainder = parseFloat(this.state.remainder);
     try {      
       tip = bill*percent;
-      bill_tip = bill + tip;
+      bill_tip = bill + tip;      
+      remainder = Math.abs(this.remainder(bill_tip));
       if(this.state.roundUp){
         bill_tip = this.roundUp(bill_tip);
-        remainder = parseFloat(this.remainder(bill_tip));
         tip = bill_tip - bill;
       } 
       share = bill_tip / this.state.count;
