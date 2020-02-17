@@ -8,6 +8,7 @@ const List = (props) => {
             <tr key={index}>
                 <td>{row.url}</td>
                 <td>{row.description}</td>
+                <td>{row.timestamp}</td>
                 <td>{row.read.toString()}</td>                
             </tr>
         )
@@ -19,6 +20,7 @@ const List = (props) => {
                 <tr>
                     <th>URL</th>
                     <th>Description</th>
+                    <th>Added</th>
                     <th>Read?</th>
                 </tr>
             </thead>

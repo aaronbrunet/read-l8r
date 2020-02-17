@@ -8,11 +8,13 @@ const links = [
   {
     url: "google.com",
     description: "Google",
+    timestamp: "12 o clock",
     read: false
   },
   {
     url: "example.com",
     description: "Example",
+    timestamp: "1 o clock",
     read: true
   },
 ]
@@ -21,7 +23,7 @@ const App = () => {
   const [list,addList] = useState(links)
 
   const add = (url,description,read) => {
-    addList([...list, {url:url, description:description,read:read}])
+    addList([...list, {url:url, description:description,read:read, timestamp:new Date().toLocaleString()}])
   }
 
   
