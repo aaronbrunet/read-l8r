@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/playground/tip/static/css/main.7cac2a67.chunk.css",
+    "main.js": "/playground/tip/static/js/main.cf471a94.chunk.js",
+    "main.js.map": "/playground/tip/static/js/main.cf471a94.chunk.js.map",
+    "runtime-main.js": "/playground/tip/static/js/runtime-main.238b97df.js",
+    "runtime-main.js.map": "/playground/tip/static/js/runtime-main.238b97df.js.map",
+    "static/js/2.3dbf20c0.chunk.js": "/playground/tip/static/js/2.3dbf20c0.chunk.js",
+    "static/js/2.3dbf20c0.chunk.js.map": "/playground/tip/static/js/2.3dbf20c0.chunk.js.map",
+    "index.html": "/playground/tip/index.html",
+    "precache-manifest.817579708494f81f7ab891f95fe197a3.js": "/playground/tip/precache-manifest.817579708494f81f7ab891f95fe197a3.js",
+    "service-worker.js": "/playground/tip/service-worker.js",
+    "static/css/main.7cac2a67.chunk.css.map": "/playground/tip/static/css/main.7cac2a67.chunk.css.map",
+    "static/js/2.3dbf20c0.chunk.js.LICENSE.txt": "/playground/tip/static/js/2.3dbf20c0.chunk.js.LICENSE.txt",
+    "static/media/styles.scss": "/playground/tip/static/media/top-bg.178b9dd5.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.238b97df.js",
+    "static/js/2.3dbf20c0.chunk.js",
+    "static/css/main.7cac2a67.chunk.css",
+    "static/js/main.cf471a94.chunk.js"
+  ]
+}
