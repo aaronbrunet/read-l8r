@@ -1,0 +1,17 @@
+.App {
+  width: 100%;
+  
+  text-align: center;
+}
+
+
+.column {
+  display: inline-block;  
+  box-sizing: border-box;
+  width: 50%;
+
+  table {
+    width: 80%;
+    margin: auto;
+  }
+}
