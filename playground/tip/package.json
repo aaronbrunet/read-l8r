@@ -1,6 +1,7 @@
 {
   "name": "tip",
   "version": "0.1.0",
+  "private": true,
   "homepage": "https://aaronbrunet.github.io/playground/tip",
   "dependencies": {
     "@material-ui/core": "^4.9.2",
