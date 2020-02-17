@@ -1,0 +1,47 @@
+<svg id="Symbol_5_1" data-name="Symbol 5 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3 {
+        fill: #78c4ab;
+      }
+
+      .cls-4 {
+        fill: #2c1d90;
+      }
+
+      .cls-5 {
+        fill: #93f8c2;
+      }
+
+      .cls-6 {
+        fill: #ffbb36;
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_8" data-name="Rectangle 8" class="cls-1" width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_2" data-name="Mask Group 2" class="cls-2">
+    <g id="Group_12" data-name="Group 12" transform="translate(-1039 -1165)">
+      <g id="Group_11" data-name="Group 11" transform="translate(138.963 -318.245)">
+        <path id="Path_114" data-name="Path 114" class="cls-3" d="M894.013,270.967c177.083,0-202.18,541.14-202.18,738.112s66.206,772.194-110.878,772.194S0,1559.808,0,1362.836C0,1257.26,177.412,811.723,243.015,746.359,1271.53-585.26,811.846,270.967,894.013,270.967Z" transform="translate(1735.619 668.611) rotate(77)"/>
+        <path id="Path_102" data-name="Path 102" class="cls-4" d="M372.269,30.346c205.6,0,657.3-92.139,657.3,44.687s-425,374.732-709.769,465.341S0,414.917,0,278.091,166.671,30.346,372.269,30.346Z" transform="matrix(0.921, 0.391, -0.391, 0.921, 786.524, 1228.408)"/>
+        <path id="Path_98" data-name="Path 98" class="cls-5" d="M1965.587,463.106,86.963,375.4,0,531.908S754.359,660.879,1138.782,634.327C1453.623,612.581,2025.378-9.6,2021.754.112c-.689,1.865,71.655,426.342,71.655,426.342" transform="translate(1047.251 668.424) rotate(16)"/>
+        <path id="Path_101" data-name="Path 101" class="cls-6" d="M343.45,25.733C-542.668,120.623,549.421,131.076,688.667,267.2S571.016,512.154,343.45,453.391c-30.266-7.815-71.36-19.436-92.484-26.674-137.979-47.276-83.238-88.342-83.238-189.572C167.728,120.386,1229.567-69.156,343.45,25.733Z" transform="matrix(0.921, 0.391, -0.391, 0.921, 1156.917, 1018.146)"/>
+        <path id="Path_113" data-name="Path 113" class="cls-7" d="M2042.626,106.209l208.757,735.7s-24.291-394.306-928.477-331.05S0,0,0,0L654.524,1157.689" transform="translate(1761.57 169) rotate(42)"/>
+      </g>
+    </g>
+  </g>
+</svg>
