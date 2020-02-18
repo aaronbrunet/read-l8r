@@ -1,3 +1,10 @@
+//TODO: User auth
+//TODO: Reformat data display + add functionality
+//TODO: Styling read state
+//TODO: Grouping items
+//TODO: Reminders + scheduling
+//TODO: Types?
+
 import React, {useState, useEffect}  from 'react'
 import firebase from './firebase.js'
 import List from './components/list.js'
