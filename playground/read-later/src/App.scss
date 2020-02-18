@@ -16,5 +16,11 @@
   table {
     width: 80%;
     margin: auto;
+    *{
+      border: none;
+    }
+    input {
+      border: 1px solid grey;
+    }
   }
 }

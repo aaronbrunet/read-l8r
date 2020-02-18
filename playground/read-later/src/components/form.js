@@ -3,8 +3,8 @@ import React, {useState} from 'react'
 const LinkForm = (props) => {  
     const initialLink = {id:null,url:'',description:'',read:false,timestamp:null}
     const [link,setLink] = useState(initialLink)
-    const [url,addUrl] = useState('')  
-    const [description,addDescription] = useState('')  
+    //const [url,addUrl] = useState('')  
+    //const [description,addDescription] = useState('')  
 
     const handleInputChange = event => {
         const {name,value} = event.target

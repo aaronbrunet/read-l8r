@@ -1,4 +1,6 @@
 import React, {useState}  from 'react'
+import firebase from './firebase.js'
+
 import List from './components/list.js'
 import LinkForm from './components/form.js'
 
