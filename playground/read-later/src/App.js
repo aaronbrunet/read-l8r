@@ -47,12 +47,14 @@ const App = () => {
   const deleteLink = id => {
     let newList = list.filter(link => link.id !== id )
     setList(newList)
-    //const linksRef = firebase.database().ref('links')
-    //linksRef.push(newList)    
+    const linksRef = firebase.database().ref(`/links/${id}`)
+    linksRef.remove()
   }
 
   const updateLink = updatedLink => {
     setList(list.map(link => (link.id === updatedLink.id ? updatedLink : link)))    
+    const linksRef = firebase.database().ref(`/links/${updatedLink.id}`)
+    linksRef.update({read: updatedLink.read})
   }
   
 
