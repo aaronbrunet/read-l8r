@@ -4,11 +4,14 @@
   text-align: center;
 }
 
-
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .column {
-  display: inline-block;  
   box-sizing: border-box;
-  width: 50%;
+  flex:1;
 
   table {
     width: 80%;
