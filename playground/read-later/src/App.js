@@ -1,45 +1,58 @@
-import React, {useState}  from 'react'
+import React, {useState, useEffect}  from 'react'
 import firebase from './firebase.js'
-
 import List from './components/list.js'
 import LinkForm from './components/form.js'
-
 import "./App.scss"
 
-const links = [
-  {
-    id: 1,
+/*const links = [
+  {   
     url: "google.com",
     description: "Google",
     timestamp: new Date().toLocaleString(),
     read: false
-  },
-  {
-    id: 2,
-    url: "example.com",
-    description: "Example",
-    timestamp: new Date().toLocaleString(),
-    read: true
-  },
-]
-//const links = [];
+  }
+]*/
+const links = [];
 
 const App = () => {
   const [list,setList] = useState(links)
+ 
+  useEffect(() => {  
+    const linksRef = firebase.database().ref('links')
+    let linkDb = [];
+    linksRef.on('value', (snapshot) => {
+      let db = snapshot.val()
+      linkDb = [];
+      for(let link in db){
+        linkDb.push({
+          id:link,
+          url:db[link].url,
+          description:db[link].description,
+          timestamp:db[link].timestamp,
+          read:db[link].read
+        })
+      }
+      setList(linkDb)        
+    })    
+  },[])
+
 
   const addLink = link => {
     link.id = list.length + 1
     link.timestamp = new Date().toLocaleString()
     setList([...list, link])
+    const linksRef = firebase.database().ref('links')
+    linksRef.push(link)    
   }
   const deleteLink = id => {
-    setList(list.filter(link => link.id !== id ))
+    let newList = list.filter(link => link.id !== id )
+    setList(newList)
+    //const linksRef = firebase.database().ref('links')
+    //linksRef.push(newList)    
   }
 
   const updateLink = updatedLink => {
-    setList(list.map(link => (link.id === updatedLink.id ? updatedLink : link)))
-    //let read = event.target.innerHTML;
-    //console.log(event);
+    setList(list.map(link => (link.id === updatedLink.id ? updatedLink : link)))    
   }
   
 

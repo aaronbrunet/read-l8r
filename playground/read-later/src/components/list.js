@@ -16,8 +16,7 @@ const List = (props) => {
         props.update(link)
     }
 
-    const rows = list.map((row,index) => ( 
-        
+    const rows = list.map((row,index) => (        
             <Link key={index} read={row.read}>
              <td name="url">{row.url}</td>
              <td name="description">{row.description}</td>
