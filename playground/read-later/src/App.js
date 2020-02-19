@@ -70,9 +70,7 @@ const App = () => {
 
       <header className="App-header">
       </header>
-
-      <p>Hello World!</p>
-
+      <h1>ReadL8r</h1>
       <div className="container">
         <div className="column">
           <p>All Links</p>
