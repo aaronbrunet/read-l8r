@@ -19,6 +19,7 @@ const List = (props) => {
              <td name="description">{row.description}</td>
              <td name="time">{row.timestamp}</td>
              <td name="read"><button onClick={()=>markRead(row)}>{row.read.toString()}</button></td>      
+             <td name="actions"><button>Edit</button></td>        
              <td name="actions"><button onClick={()=>props.delete(row.id)}>Delete</button></td>          
          </Link>         
     ))
