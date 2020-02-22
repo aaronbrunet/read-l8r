@@ -25,6 +25,7 @@ const links = [];
 const App = () => {
   const [list,setList] = useState(links)
   const [user,setUser] = useState(null)
+  const [editLink,setEditLink] = useState(null)
   
   useEffect(() => {  
     auth.onAuthStateChanged((user) => {
@@ -79,7 +80,7 @@ const App = () => {
   const updateLink = updatedLink => {
     setList(list.map(link => (link.id === updatedLink.id ? updatedLink : link)))    
     const linksRef = firebase.database().ref(`/links/${user.uid}/${updatedLink.id}`)
-    linksRef.update({read: updatedLink.read})
+    linksRef.update(updatedLink)
   }
   
   const logout = () => {
@@ -98,6 +99,10 @@ const App = () => {
       })
   }
 
+  const edit = link => {
+    setEditLink(link)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -106,12 +111,16 @@ const App = () => {
       <h1>ReadL8r</h1>
       <div className="container">
         <div className="column">
-          <p>All Links</p>
-          <List data={list} update={updateLink} delete={deleteLink} user={user}/>
+          <p>Your List</p>
+          <List data={list} update={updateLink} edit={edit} delete={deleteLink} user={user}/>
         </div>
         <div className="column">
-          <p>New Link</p>
-          <LinkForm add={addLink} user={user}/>
+          <p>New</p>
+          {editLink ? 
+            <LinkForm add={addLink} user={user} link={editLink} update={updateLink}/>
+          :
+            <LinkForm add={addLink} user={user}/>
+          }
         </div>
       </div>
 

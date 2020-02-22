@@ -12,14 +12,17 @@ const List = (props) => {
         link.read = !link.read;
         props.update(link)
     }
+    const editLink = (link) => {
+        props.edit(link)
+    }
 
     const rows = list.map((row,index) => (        
             <Link key={index} read={row.read}>
-             <td name="url">{row.url}</td>
+             <td name="url"><a href={row.url} rel="noopener noreferrer" target="_blank">{row.url}</a></td>
              <td name="description">{row.description}</td>
              <td name="time">{row.timestamp}</td>
              <td name="read"><button onClick={()=>markRead(row)}>{row.read.toString()}</button></td>      
-             <td name="actions" ><button>Edit</button></td>        
+             <td name="actions" ><button onClick={()=>editLink(row)}>Edit</button></td>        
              <td name="actions"><button onClick={()=>props.delete(row.id)}>Delete</button></td>          
          </Link>         
     ))

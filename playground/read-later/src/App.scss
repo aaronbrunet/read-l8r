@@ -4,6 +4,17 @@
   text-align: center;
 }
 
+.user-area {
+  float: left;
+  * {
+    display: inline-block;
+    max-height: 100px;
+    margin: 0 20px;
+    vertical-align: middle;
+  }
+
+}
+
 .container {
   display: flex;
   flex-direction: row;
