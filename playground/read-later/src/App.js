@@ -6,7 +6,7 @@
 //TODO: Types?
 
 import React, {useState, useEffect}  from 'react'
-import firebase from './firebase.js'
+import firebase, { auth, provider } from './firebase.js'
 import List from './components/list.js'
 import LinkForm from './components/form.js'
 import "./App.scss"
@@ -23,6 +23,7 @@ const links = [];
 
 const App = () => {
   const [list,setList] = useState(links)
+  const [user,setUser] = useState(null)
  
   useEffect(() => {  
     const linksRef = firebase.database().ref('links')
@@ -64,11 +65,26 @@ const App = () => {
     linksRef.update({read: updatedLink.read})
   }
   
+  const logout = () => {
+
+  }
+  const login = () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        setUser({user})
+      })
+  }
 
   return (
     <div className="App">
 
       <header className="App-header">
+        {user ? 
+        <button onClick={logout}>Log Out</button>
+        : 
+        <button onClick={login}>Log In</button>
+        }
       </header>
       <h1>ReadL8r</h1>
       <div className="container">

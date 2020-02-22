@@ -40,7 +40,8 @@ const List = (props) => {
                         {rows}
                     </tbody>
                 </table>
-                : <h4>No links found! Add a link to get reading (well, later)</h4>
+                : 
+                <h4>No links found! Add a link to get reading (well, later)</h4>
             
     );
 }
