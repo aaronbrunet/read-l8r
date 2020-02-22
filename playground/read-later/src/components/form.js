@@ -47,7 +47,7 @@ const LinkForm = (props) => {
                         <tr>
                             <td><input type="url" pattern="(http|https)://.+" name="url" onChange={handleInputChange} value={link.url}/></td>
                             <td><input name="description" onChange={handleInputChange} value={link.description} /></td>                
-                            <td><button>{edit ? 'Save' : 'Add +'}</button></td>
+                            <td><button>{edit ? '💾' : 'Add +'}</button></td>
                         </tr>
                     </tbody>
                 </table>

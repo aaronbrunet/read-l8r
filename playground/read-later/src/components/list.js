@@ -3,8 +3,13 @@ import styled from 'styled-components'
 
 const Link = styled.tr`
     opacity:  ${props=>(props.read === true ? '.3':'1')};
-    .edit {
+    .edit {        
         pointer-events: ${props=>(props.read === true ? 'none':'enabled')};
+        
+        span {
+            display: inline-block;
+            transform: rotate(135deg);
+        }
     }
 `
 
@@ -25,8 +30,8 @@ const List = (props) => {
              <td name="description">{row.description}</td>
              <td name="time">{row.timestamp}</td>
              <td name="read"><button onClick={()=>markRead(row)}>{row.read.toString()}</button></td>      
-             <td name="actions"><button className="edit" onClick={()=>editLink(row)}>Edit</button></td>        
-             <td name="actions"><button onClick={()=>props.delete(row.id)}>Delete</button></td>          
+             <td name="actions"><button className="edit" onClick={()=>editLink(row)}><span>✏</span></button></td>        
+             <td name="actions"><button onClick={()=>props.delete(row.id)}><span>🗑</span></button></td>          
          </Link>         
     ))
 
