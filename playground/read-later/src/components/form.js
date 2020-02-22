@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 
 const LinkForm = (props) => {  
-    const initialLink = {id:null,url:'',description:'',read:false,timestamp:null}
+    const initialLink = {id:null,url:'',description:'',read:false,timestamp:null,uid:null}
     const [link,setLink] = useState(initialLink)
 
     const handleInputChange = event => {
         const {name,value} = event.target
-        setLink({...link,[name]:value,read:false,timestamp:new Date().toLocaleString()})
+        setLink({...link,[name]:value,read:false,timestamp:new Date().toLocaleString(),uid:props.user.uid})
     }
 
     return(
