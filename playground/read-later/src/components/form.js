@@ -19,8 +19,7 @@ const LinkForm = (props) => {
 
     const handleInputChange = event => {
         const {name,value} = event.target
-        setLink({...link,[name]:value,read:false,timestamp:new Date().toLocaleString(),uid:props.user.uid})
-        
+        setLink({...link,[name]:value,read:false,timestamp:new Date().toLocaleString(),uid:props.user.uid})        
     }
 
     const groupsList = groups.map((group,key) => {

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { SegmentedControl, Spinner } from 'gestalt'
 import styled from 'styled-components'
 
 const Link = styled.tr`
@@ -14,25 +15,49 @@ const Link = styled.tr`
 `
 
 const List = (props) => {    
-    const list = props.data; 
+    const [tabIndex, setTabIndex] = useState(0)
+    //const [loaded,setLoaded] = useState(false)
+    let loaded = props.loaded
+    const list = props.data
+    const groups = ['All',...props.groups]
 
     const markRead = (link) => {
-        link.read = !link.read;
+        link.read = !link.read
         props.update(link)
     }
     const editLink = (link) => {
         props.edit(link)
+    }    
+
+    const handleSegmentChange = event => {  
+        const index = event.activeIndex      
+        setTabIndex(index)
+        console.log(groups[index])   
+        if(groups[index]&&index!==0){
+            props.filtering(groups[index])
+        }else{
+            props.filtering(null)
+        }     
     }
 
-    const orderList = props.orders.map((order,key) => {
-        return <option key={key} value={order}>{order}</option>
+    const handleInputChange = event => {        
+        if(event.target.value){
+            props.ordering(event.target.value)
+        }else{
+            props.ordering(null)
+        }
+    }
+
+    const _handleLoad = () => {
+        //setLoaded(loaded => !loaded)
+    }
+
+
+    const filterList = props.groups.map((filter,key) => {
+        return <button onClick={handleInputChange} value={filter} key={key}>{filter}</button>
     })
-
-    const handleInputChange = event => {
-        props.ordering(event.target.value)
-    }
-
-    const rows = list.map((row,index) => (        
+    //.toString().replace(/(^\w+:|^)\/\//, '')
+    const rows = list.map((row,index) => (                  
             <Link key={index} read={row.read}>
              <td name="group">{row.group}</td>
              <td name="url"><a href={row.url} rel="noopener noreferrer" target="_blank">{row.url}</a></td>
@@ -40,33 +65,45 @@ const List = (props) => {
              <td name="time">{row.timestamp}</td>
              <td name="read"><button onClick={()=>markRead(row)}>{row.read.toString()}</button></td>      
              <td name="actions"><button className="edit" onClick={()=>editLink(row)}><span>✏</span></button></td>        
-             <td name="actions"><button onClick={()=>props.delete(row.id)}><span>🗑</span></button></td>          
+             <td name="actions"><button onClick={()=>props.delete(row)}><span>🗑</span></button></td>          
          </Link>         
     ))
-
+    //<input type="text" name="Order" list="ordering" onChange={handleInputChange}/>
+    //<datalist id="ordering">{orderList}</datalist>
+    //<button onClick={handleInputChange} value=''>All</button>{filterList} 
     return(      
         <>  
-                <p>Your List</p>
-                <input type="text" name="Order" list="ordering" onChange={handleInputChange}/>
-                <datalist id="ordering">{orderList}</datalist>
-                {list.length > 0 ? 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Group</th>
-                            <th>URL</th>
-                            <th>Description</th>
-                            <th>Updated</th>
-                            <th>Read?</th>
-                            <th colSpan="2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
-                : 
-                <h4>No links found! Add a link to get reading (well, later)</h4>}
+                <p>Your List</p>    
+                {loaded ?                    
+                    (list.length > 0 ?                 
+                    <>                    
+                        <SegmentedControl items={groups} selectedItemIndex={tabIndex} onChange={handleSegmentChange} />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>URL</th>
+                                    <th>Description</th>
+                                    <th>Updated</th>
+                                    <th>Read?</th>
+                                    <th colSpan="2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {rows}
+                            </tbody>
+                        </table>
+                    </>
+                    :   
+                    <>              
+                        
+                        <h4>No links found! Add a link to get reading (well, later)</h4>
+                    </>  
+                    )                  
+                    :
+                    <Spinner accessibilityLabel="random image" show={!loaded}/> 
+                }
+                
         </>
             
     );
