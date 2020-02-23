@@ -26,7 +26,11 @@ const App = () => {
   const [list,setList] = useState(links)
   const [user,setUser] = useState(null)
   const [editLink,setEditLink] = useState(null)
-  
+  const [groups,setGroups] = useState([])
+  const [order,setOrder] = useState('timestamp')
+  const [keys,setKeys] = useState([])
+  const [filter,setFilter] = useState()
+
   useEffect(() => {  
     auth.onAuthStateChanged((user) => {
       if(user){
@@ -36,35 +40,41 @@ const App = () => {
   })   
 
   useEffect(() => {    
-    //updateList(user)
+    //updateList(user)   
     if(user) {
-      const linksRef = firebase.database().ref(`links/${user.uid}`)
-      let linkDb = [];
-      linksRef.on('value', snapshot => {
-        let db = snapshot.val()
-        linkDb = [];
-        for(let link in db){
-          linkDb.push({
-            id:link,
-            url:db[link].url,
-            description:db[link].description,
-            timestamp:db[link].timestamp,
-            read:db[link].read,
-            uid:db[link].uid
-          })
-        }
-        setList(linkDb)   
-        console.log(linkDb)     
+      let linksRef = ''
+      if(order){linksRef = firebase.database().ref('links/' +user.uid).orderByChild(order)}
+      else{linksRef = firebase.database().ref('links/' +user.uid).orderByChild(order)}
+      let linkDb = []
+      let groups = []
+      let keys = []
+      linksRef.on('value', function(snapshot) {
+        linkDb = []
+        snapshot.forEach(function(link){
+          linkDb.push(link.val())
+          groups.push(link.child('group').val())
+          for (let key in link.val()){
+            //console.log(key)
+            keys.push(key)
+          }
+        })
+        groups = [...new Set(groups)]
+        keys = [...new Set(keys)]
+        setKeys(keys)
+
+        setGroups(groups)
+        setList(linkDb) 
+        console.log(keys)
       }) 
     }
     else{
       setList(links)
     }
-  },[user])
+    
+  },[user,order])
 
 
   const addLink = link => {
-    link.id = list.length + 1
     link.timestamp = new Date().toLocaleString()
     setList([...list, link])
     const linksRef = firebase.database().ref(`links/${user.uid}`)
@@ -77,14 +87,14 @@ const App = () => {
     linksRef.remove()
   }
 
-  const updateLink = updatedLink => {
+  const updateLink = updatedLink => {    
+    updatedLink.timestamp = new Date().toLocaleString()
     setList(list.map(link => (link.id === updatedLink.id ? updatedLink : link)))    
     const linksRef = firebase.database().ref(`/links/${user.uid}/${updatedLink.id}`)
     linksRef.update(updatedLink)
   }
   
   const logout = () => {
-    //console.log(user)
     auth.signOut()
       .then(() => {
         setUser(null)
@@ -95,12 +105,15 @@ const App = () => {
       .then((result) => {
         const user = result.user;
         setUser(user)
-        //console.log(user)
       })
   }
 
   const edit = link => {
     setEditLink(link)
+  }
+
+  const ordering = event => {
+    setOrder(event)
   }
 
   return (
@@ -110,16 +123,14 @@ const App = () => {
       </header>
       <h1>ReadL8r</h1>
       <div className="container">
-        <div className="column">
-          <p>Your List</p>
-          <List data={list} update={updateLink} edit={edit} delete={deleteLink} user={user}/>
+        <div className="column">          
+          <List data={list} update={updateLink} edit={edit} delete={deleteLink} user={user} groups={groups} orders={keys} ordering={ordering} />
         </div>
         <div className="column">
-          <p>New</p>
           {editLink ? 
-            <LinkForm add={addLink} user={user} link={editLink} update={updateLink}/>
+            <LinkForm add={addLink} user={user} link={editLink} update={updateLink} groups={groups}/>
           :
-            <LinkForm add={addLink} user={user}/>
+            <LinkForm add={addLink} user={user} groups={groups}/>
           }
         </div>
       </div>

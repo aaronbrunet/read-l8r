@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 
 const LinkForm = (props) => {  
-    const initialLink = {id:null,url:'',description:'',read:false,timestamp:null,uid:null}
+    const initialLink = {id:null,url:'',description:'',read:false,timestamp:null,uid:null,group:''}
     const [link,setLink] = useState(initialLink)
     const [edit,setEdit] = useState(false)
 
     const editLink = props.link
+    const groups = props.groups
+
     useEffect(()=>{
         if(editLink){
             setLink(editLink)
@@ -21,8 +23,13 @@ const LinkForm = (props) => {
         
     }
 
+    const groupsList = groups.map((group,key) => {
+           return <option key={key} value={group}>{group}</option>
+    })
+
     return(
-        <>
+        <>        
+        <p>New</p>
         {user ?       
             <form onSubmit={ event => {
                 event.preventDefault()
@@ -39,14 +46,20 @@ const LinkForm = (props) => {
                     <thead>
                         <tr>
                             <th>URL</th>
-                            <th>Description</th>                    
+                            <th>Description</th>   
+                            <th>Group</th>                    
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><input type="url" pattern="(http|https)://.+" name="url" onChange={handleInputChange} value={link.url}/></td>
-                            <td><input name="description" onChange={handleInputChange} value={link.description} /></td>                
+                            <td><input name="description" onChange={handleInputChange} value={link.description} /></td> 
+                            <td>
+                                <input name="group" onChange={handleInputChange} value={link.group} list="groups"/>
+                                <datalist id="groups">{groupsList}</datalist>
+                            </td>                
+
                             <td><button>{edit ? '💾' : 'Add +'}</button></td>
                         </tr>
                     </tbody>

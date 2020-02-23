@@ -14,7 +14,7 @@ const Link = styled.tr`
 `
 
 const List = (props) => {    
-    const list = props.data;    
+    const list = props.data; 
 
     const markRead = (link) => {
         link.read = !link.read;
@@ -24,8 +24,17 @@ const List = (props) => {
         props.edit(link)
     }
 
+    const orderList = props.orders.map((order,key) => {
+        return <option key={key} value={order}>{order}</option>
+    })
+
+    const handleInputChange = event => {
+        props.ordering(event.target.value)
+    }
+
     const rows = list.map((row,index) => (        
             <Link key={index} read={row.read}>
+             <td name="group">{row.group}</td>
              <td name="url"><a href={row.url} rel="noopener noreferrer" target="_blank">{row.url}</a></td>
              <td name="description">{row.description}</td>
              <td name="time">{row.timestamp}</td>
@@ -35,14 +44,19 @@ const List = (props) => {
          </Link>         
     ))
 
-    return(        
-                list.length > 0 ? 
+    return(      
+        <>  
+                <p>Your List</p>
+                <input type="text" name="Order" list="ordering" onChange={handleInputChange}/>
+                <datalist id="ordering">{orderList}</datalist>
+                {list.length > 0 ? 
                 <table>
                     <thead>
                         <tr>
+                            <th>Group</th>
                             <th>URL</th>
                             <th>Description</th>
-                            <th>Added</th>
+                            <th>Updated</th>
                             <th>Read?</th>
                             <th colSpan="2">Actions</th>
                         </tr>
@@ -52,7 +66,8 @@ const List = (props) => {
                     </tbody>
                 </table>
                 : 
-                <h4>No links found! Add a link to get reading (well, later)</h4>
+                <h4>No links found! Add a link to get reading (well, later)</h4>}
+        </>
             
     );
 }
