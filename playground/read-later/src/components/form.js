@@ -44,9 +44,16 @@ const LinkForm = (props) => {
             }}>
                 <Box display="flex" direction="row" position="relative">
                     <Column span={12}>
-                        <Label htmlFor="url">
-                            <h3>URL</h3>
-                        </Label>
+                        <Box paddingY={2} paddingX={4} display="flex">
+                        <Column span={4}>
+                            <Label htmlFor="url">
+                                <h3>URL</h3>
+                            </Label>
+                        </Column>
+                        <Column span={8}>
+                        <input type="url" pattern="https?://.+" name="url" onChange={_handleInputChange} value={link.url}/>
+                        </Column>
+                        </Box>
                     </Column>
                 </Box>
 
@@ -62,7 +69,7 @@ const LinkForm = (props) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="url" pattern="(http|https)://.+" name="url" onChange={_handleInputChange} value={link.url}/></td>
+                            <td><input type="url" pattern="https?://.+" name="url" onChange={_handleInputChange} value={link.url}/></td>
                             <td><input name="description" onChange={_handleInputChange} value={link.description} /></td> 
                             <td>
                                 <input name="group" onChange={_handleInputChange} value={link.group} list="groups"/>

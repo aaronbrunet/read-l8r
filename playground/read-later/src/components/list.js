@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SegmentedControl, Spinner } from 'gestalt'
+import { Flyout, SegmentedControl, Spinner } from 'gestalt'
 import styled from 'styled-components'
 
 const Link = styled.tr`
@@ -17,7 +17,15 @@ const List = (props) => {
     const [tabIndex, setTabIndex] = useState(0)
     //const [loaded,setLoaded] = useState(false)
     let loaded = props.loaded
-    const list = props.data
+    const data = props.data
+
+    
+    let holder = []
+    props.filter ? holder = data.filter(link=>link.group===props.filter) : holder = data
+    const list = holder
+    
+
+
     const groups = ['All',...props.groups]
 
     const _markRead = (link) => {
@@ -39,6 +47,17 @@ const List = (props) => {
         }     
     }
 
+    const _handleTabChange = event => {  
+        const index = event.activeIndex      
+        setTabIndex(index)
+        console.log(groups[index])   
+        if(groups[index]&&index!==0){
+            props.filtering(groups[index])
+        }else{
+            props.filtering(null)
+        }     
+    }
+
     const _handleInputChange = event => {        
         if(event.target.value){
             props.ordering(event.target.value)
@@ -49,23 +68,22 @@ const List = (props) => {
 
     const _handleLoad = () => {
         //setLoaded(loaded => !loaded)
-    }
-
+    }    
 
     const filterList = props.groups.map((filter,key) => {
         return <button onClick={_handleInputChange} value={filter} key={key}>{filter}</button>
     })
     //.toString().replace(/(^\w+:|^)\/\//, '')
-    const rows = list.map((row,index) => (                  
+    const rows = list.map((row,index) => (                          
             <Link key={index} read={row.read}>
-             <td name="group">{row.group}</td>
-             <td name="url"><a href={row.url} rel="noopener noreferrer" target="_blank">{row.url}</a></td>
-             <td name="description">{row.description}</td>
-             <td name="time">{row.timestamp}</td>
-             <td name="read"><button onClick={()=>_markRead(row)}>{row.read.toString()}</button></td>      
-             <td name="actions"><button className="edit" onClick={()=>_editLink(row)}><span>✏</span></button></td>        
-             <td name="actions"><button onClick={()=>props.delete(row)}><span>🗑</span></button></td>          
-         </Link>         
+                <td name="group">{row.group}</td>
+                <td name="url"><a href={row.url} rel="noopener noreferrer" target="_blank">{row.url}</a></td>
+                <td name="description">{row.description}</td>
+                <td name="time">{row.timestamp}</td>
+                <td name="read"><button onClick={()=>_markRead(row)}><span>👁‍🗨</span></button></td>      
+                <td name="actions"><button className="edit" onClick={()=>_editLink(row)}><span>✏</span></button></td>        
+                <td name="actions"><button onClick={()=>props.delete(row)}><span>🗑</span></button></td>     
+            </Link>            
     ))
     //<input type="text" name="Order" list="ordering" onChange={handleInputChange}/>
     //<datalist id="ordering">{orderList}</datalist>
@@ -84,8 +102,8 @@ const List = (props) => {
                                     <th>URL</th>
                                     <th>Description</th>
                                     <th>Updated</th>
-                                    <th>Read?</th>
-                                    <th colSpan="2">Actions</th>
+                                    <th></th>
+                                    <th colSpan="2"></th>
                                 </tr>
                             </thead>
                             <tbody>

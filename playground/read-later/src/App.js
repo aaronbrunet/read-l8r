@@ -47,8 +47,10 @@ const App = () => {
     if(user) {
       //setLoaded(false)
       let linksRef = ''
-      if(filter){linksRef = firebase.database().ref('links/' +user.uid).orderByChild('group').equalTo(filter)}
-      else{linksRef = firebase.database().ref('links/' +user.uid).orderByChild('group')}
+      //if(filter){linksRef = firebase.database().ref('links/' +user.uid).orderByChild('group').equalTo(filter)}
+      //else{
+        linksRef = firebase.database().ref('links/' +user.uid).orderByChild('group')
+      //}
       let linkDb = []
       let groups = []
       let keys = []
@@ -58,9 +60,10 @@ const App = () => {
           link.id = link.key
           linkDb.push(link.val())
           //console.log(link.key)
-          groups.push(link.child('group').val())
+          if(link.child('group').val()){
+            groups.push(link.child('group').val())
+          }          
           for (let key in link.val()){
-            //console.log(key)
             keys.push(key)
           }
         })
@@ -82,10 +85,12 @@ const App = () => {
   const _addLink = link => {    
     setLoaded(false)
     link.timestamp = new Date().toLocaleString()
+    if(!link.group||link.group===''){
+      //link.group = 'Ungrouped'
+    }
     setList([...list, link])
     const newKey = firebase.database().ref(`links/${user.uid}`).push().key
     link.id = newKey
-    console.log(newKey)
     const linksRef = firebase.database().ref(`links/${user.uid}/${newKey}`)
     linksRef.update(link)    
     toggleAdd(false)    
@@ -103,12 +108,8 @@ const App = () => {
   const _updateLink = updatedLink => {        
     setLoaded(false)
     updatedLink.timestamp = new Date().toLocaleString()
-    //setList(list.map(row => (row.id === updatedLink.id ? updatedLink : row)))  
     setList(list.map(row => (row.id.match(updatedLink.id) ? updatedLink : row)))   
-    //console.log([list,updatedLink])    
-    const linksRef = firebase.database().ref(`/links/${user.uid}`).child(updatedLink.id)
-    let key = linksRef.key
-    //console.log(linksRef.key)
+    const linksRef = firebase.database().ref(`/links/${user.uid}`).child(updatedLink.id)    
     linksRef.update(updatedLink)
     toggleAdd(false)    
     setLoaded(true) 
@@ -155,7 +156,7 @@ const App = () => {
         <div className="column">  
         { user ?
             <>
-            <List data={list} update={_updateLink} edit={_edit} delete={_deleteLink} user={user} groups={groupList} keys={keys} filtering={_filtering} loaded={loaded} />
+            <List data={list} update={_updateLink} edit={_edit} delete={_deleteLink} user={user} groups={groupList} keys={keys} filter={filter} filtering={_filtering} loaded={loaded} />
             <Button onClick={_newForm} text="Add New Link" inline />
             </>
           :
