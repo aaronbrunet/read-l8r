@@ -1,6 +1,5 @@
 .App {
-  width: 100%;
-  
+  width: 100%;  
   text-align: center;
 }
 
@@ -28,13 +27,20 @@
   flex:1;
 
   table {
-    width: 80%;
+    width: 100%;
     margin: auto;
     *{
       border: none;
     }
     input {
       border: 1px solid grey;
+    }
+    th, tr,td {
+      margin: 10px;
+      padding: 10px;
+    }
+    [name=group] {
+      float: left;
     }
   }
 }

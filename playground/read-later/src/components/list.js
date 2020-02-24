@@ -5,8 +5,7 @@ import styled from 'styled-components'
 const Link = styled.tr`
     opacity:  ${props=>(props.read === true ? '.3':'1')};
     .edit {        
-        pointer-events: ${props=>(props.read === true ? 'none':'enabled')};
-        
+        pointer-events: ${props=>(props.read === true ? 'none':'enabled')};        
         span {
             display: inline-block;
             transform: rotate(135deg);
@@ -21,15 +20,15 @@ const List = (props) => {
     const list = props.data
     const groups = ['All',...props.groups]
 
-    const markRead = (link) => {
+    const _markRead = (link) => {
         link.read = !link.read
         props.update(link)
     }
-    const editLink = (link) => {
+    const _editLink = (link) => {
         props.edit(link)
     }    
 
-    const handleSegmentChange = event => {  
+    const _handleSegmentChange = event => {  
         const index = event.activeIndex      
         setTabIndex(index)
         console.log(groups[index])   
@@ -40,7 +39,7 @@ const List = (props) => {
         }     
     }
 
-    const handleInputChange = event => {        
+    const _handleInputChange = event => {        
         if(event.target.value){
             props.ordering(event.target.value)
         }else{
@@ -54,7 +53,7 @@ const List = (props) => {
 
 
     const filterList = props.groups.map((filter,key) => {
-        return <button onClick={handleInputChange} value={filter} key={key}>{filter}</button>
+        return <button onClick={_handleInputChange} value={filter} key={key}>{filter}</button>
     })
     //.toString().replace(/(^\w+:|^)\/\//, '')
     const rows = list.map((row,index) => (                  
@@ -63,8 +62,8 @@ const List = (props) => {
              <td name="url"><a href={row.url} rel="noopener noreferrer" target="_blank">{row.url}</a></td>
              <td name="description">{row.description}</td>
              <td name="time">{row.timestamp}</td>
-             <td name="read"><button onClick={()=>markRead(row)}>{row.read.toString()}</button></td>      
-             <td name="actions"><button className="edit" onClick={()=>editLink(row)}><span>✏</span></button></td>        
+             <td name="read"><button onClick={()=>_markRead(row)}>{row.read.toString()}</button></td>      
+             <td name="actions"><button className="edit" onClick={()=>_editLink(row)}><span>✏</span></button></td>        
              <td name="actions"><button onClick={()=>props.delete(row)}><span>🗑</span></button></td>          
          </Link>         
     ))
@@ -77,11 +76,11 @@ const List = (props) => {
                 {loaded ?                    
                     (list.length > 0 ?                 
                     <>                    
-                        <SegmentedControl items={groups} selectedItemIndex={tabIndex} onChange={handleSegmentChange} />
+                        <SegmentedControl items={groups} selectedItemIndex={tabIndex} onChange={_handleSegmentChange} />
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Group</th>
+                                    <th name="group">Group</th>
                                     <th>URL</th>
                                     <th>Description</th>
                                     <th>Updated</th>

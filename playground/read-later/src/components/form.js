@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Box, Column, Label } from 'gestalt'
 
 const LinkForm = (props) => {  
     const initialLink = {id:null,url:'',description:'',read:false,timestamp:null,uid:null,group:''}
@@ -7,6 +8,7 @@ const LinkForm = (props) => {
 
     const editLink = props.link
     const groups = props.groups
+    const user = props.user
 
     useEffect(()=>{
         if(editLink){
@@ -15,9 +17,9 @@ const LinkForm = (props) => {
         }
     },[editLink])
 
-    const user = props.user
 
-    const handleInputChange = event => {
+
+    const _handleInputChange = event => {
         const {name,value} = event.target
         setLink({...link,[name]:value,read:false,timestamp:new Date().toLocaleString(),uid:props.user.uid})        
     }
@@ -27,8 +29,7 @@ const LinkForm = (props) => {
     })
 
     return(
-        <>        
-        <p>New</p>
+        <>       
         {user ?       
             <form onSubmit={ event => {
                 event.preventDefault()
@@ -41,6 +42,15 @@ const LinkForm = (props) => {
                 else{props.add(link)}
                 setLink(initialLink)
             }}>
+                <Box display="flex" direction="row" position="relative">
+                    <Column span={12}>
+                        <Label htmlFor="url">
+                            <h3>URL</h3>
+                        </Label>
+                    </Column>
+                </Box>
+
+
                 <table>
                     <thead>
                         <tr>
@@ -52,10 +62,10 @@ const LinkForm = (props) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="url" pattern="(http|https)://.+" name="url" onChange={handleInputChange} value={link.url}/></td>
-                            <td><input name="description" onChange={handleInputChange} value={link.description} /></td> 
+                            <td><input type="url" pattern="(http|https)://.+" name="url" onChange={_handleInputChange} value={link.url}/></td>
+                            <td><input name="description" onChange={_handleInputChange} value={link.description} /></td> 
                             <td>
-                                <input name="group" onChange={handleInputChange} value={link.group} list="groups"/>
+                                <input name="group" onChange={_handleInputChange} value={link.group} list="groups"/>
                                 <datalist id="groups">{groupsList}</datalist>
                             </td>                
 

@@ -1,5 +1,3 @@
-//TODO: User auth
-//TODO: Reformat data display + add functionality
 //TODO: Styling read state
 //TODO: Grouping items
 //TODO: Reminders + scheduling
@@ -169,7 +167,7 @@ const App = () => {
             <Modal 
               accessibilityCloseLabel="close"
               accessibilityModalLabel="View random images"
-              heading={editLink ? 'Edit' : 'Add'} 
+              heading={editLink ? 'Edit Link' : 'Add Link'} 
               onDismiss={_newForm} 
               size="lg">
                 <Box padding={10}>

@@ -1,24 +1,21 @@
 import React from 'react'
+import { Avatar, Button, Box } from 'gestalt';
 
 const User = (props) => {
     const user = props.user
-    //console.log(user)
 
     return (
         <>
-        <div className='user-area'>
+        <Box position="absolute" top right display="flex" direction="row">
         {user ? 
-                <>                      
-                <button onClick={props.logout}>Log Out</button>
-                <div className='user-profile'>
-                    <img alt='user profile' src={user.photoURL} />
-                    <h4>Hello, {user.displayName}</h4>
-                </div>
+                <>   
+                <Button onClick={props.logout} text="Sign Out" inline />  
+                <Avatar size="md" alt='user profile' src={user.photoURL} name={user.displayName} />
                 </>           
             : 
-            <button onClick={props.login}>Log In</button>
+            <Button onClick={props.login} text="Sign In" inline />
         }
-        </div>
+        </Box>
         </>
     )
 }
