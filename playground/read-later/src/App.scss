@@ -1,0 +1,92 @@
+.App {
+  width: 100%;  
+  text-align: center;
+}
+
+.header {
+ //background: rgb(131,58,180);
+  //background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+}
+
+.user-area {
+  float: left;
+  * {
+    display: inline-block;
+    max-height: 100px;
+    margin: 0 20px;
+    vertical-align: middle;
+  }
+
+}
+.mainContainer {
+  max-width: 80%;
+  margin: auto;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.column {
+  box-sizing: border-box;
+  flex:1;
+
+  table {
+    width: 100%;
+    margin: auto;
+    *{
+      //border: none;
+    }
+    input {
+      border: 1px solid grey;
+    }
+    th, tr,td {
+      margin: 10px;
+      padding: 10px;
+      button {
+        border-radius: 5px;
+        border: 1px solid grey;
+
+        &.edit{
+          background: #0074e8;
+          color: white;
+          border: 1px solid #0074e8;
+        }
+        &.delete{
+          background: red;
+          color: white;
+          border: 1px solid red;
+        }
+
+      }
+    }
+    [name=group] {
+      float: left;
+    }
+  }
+}
+input[name=url], input[name=description], input[name=group]{
+  display: block;
+  margin: 1em;
+  height: 50%;
+  border-radius: 10px;
+  border: 1px solid grey;
+  width: 80%;
+  font-size: 12pt;
+  padding: 0px 10px;
+}
+
+td[name=group]{  
+  border-radius: 10px;
+  border: 1px solid darkgrey;  
+  color: black;
+}
+td a {
+  text-decoration: none;
+  border-bottom: 2px solid blue;
+  float: left;
+
+  &:visited{
+    color: blue;
+  }
+}
