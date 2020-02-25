@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Flyout, SegmentedControl, Spinner } from 'gestalt'
+import { Box, Flyout, Heading, SegmentedControl, Spinner, Container } from 'gestalt'
 import styled from 'styled-components'
 
 const Link = styled.tr`
@@ -82,7 +82,7 @@ const List = (props) => {
                 <td name="time">{row.timestamp}</td>
                 <td name="read"><button onClick={()=>_markRead(row)}><span>👁‍🗨</span></button></td>      
                 <td name="actions"><button className="edit" onClick={()=>_editLink(row)}><span>✏</span></button></td>        
-                <td name="actions"><button onClick={()=>props.delete(row)}><span>🗑</span></button></td>     
+                <td name="actions"><button className="delete" onClick={()=>props.delete(row)}><span>🗑</span></button></td>     
             </Link>            
     ))
     //<input type="text" name="Order" list="ordering" onChange={handleInputChange}/>
@@ -90,7 +90,8 @@ const List = (props) => {
     //<button onClick={handleInputChange} value=''>All</button>{filterList} 
     return(      
         <>  
-                <p>Your List</p>    
+                <Heading size="sm">Your List</Heading>    
+                <Container>
                 {loaded ?                    
                     (list.length > 0 ?                 
                     <>                    
@@ -120,6 +121,7 @@ const List = (props) => {
                     :
                     <Spinner accessibilityLabel="random image" show={!loaded}/> 
                 }
+                </Container>
                 
         </>
             

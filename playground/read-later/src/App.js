@@ -144,20 +144,18 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <Container>
-        <header className="App-header">
-          <User login={_login} logout={_logout} user={user} />
-        </header>      
-      </Container>
-      <Heading size="md">ReadL8r</Heading>
+    <div className="App">      
+      <User login={_login} logout={_logout} user={user} />
       <Box max-width="100%">
       <div className="container mainContainer">
         <div className="column">  
         { user ?
             <>
             <List data={list} update={_updateLink} edit={_edit} delete={_deleteLink} user={user} groups={groupList} keys={keys} filter={filter} filtering={_filtering} loaded={loaded} />
-            <Button onClick={_newForm} text="Add New Link" inline />
+            
+            <Box padding={4}>
+              <Button onClick={_newForm} text="Add New Link" color="blue" inline />
+            </Box>
             </>
           :
           <h4>Log in to see your list!</h4>
